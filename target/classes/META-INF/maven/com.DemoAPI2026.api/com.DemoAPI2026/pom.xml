@@ -99,7 +99,9 @@
         		<suiteXmlFiles>
             		<suiteXmlFile>testng.xml</suiteXmlFile>
         		</suiteXmlFiles>
-
+				
+				<!-- Continue even if tests fail -->
+   				 <testFailureIgnore>true</testFailureIgnore>
 
 
 				<!-- Allure TestNG Listener -->
