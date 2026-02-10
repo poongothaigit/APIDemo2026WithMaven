@@ -24,7 +24,7 @@ public class RegisterTest extends BaseTest{
 
 	        AuthClient client = new AuthClient();
 	        RegisterRequest payload =
-	                new RegisterRequest("Daisy", "daisy20255@test.com", "654321", "admin");
+	                new RegisterRequest("Daisy", "daisy20257@test.com", "654321", "admin");
 
 	        Response response = client.register(payload);
 
@@ -38,7 +38,7 @@ public class RegisterTest extends BaseTest{
 
 	        AuthClient client = new AuthClient();
 	        LoginRequest payload =
-	                new LoginRequest("daisy20255@test.com", "654321");
+	                new LoginRequest("daisy20257@test.com", "654321");
 
 	        Response response = client.login(payload);
 
