@@ -1,0 +1,48 @@
+name: API Tests CI
+
+# Trigger workflow on push to any branch
+on:
+  push:
+    branches:
+      - '**'
+  pull_request:
+
+jobs:
+  test:
+    runs-on: ubuntu-latest
+
+    steps:
+      # Step 1: Checkout your code
+      - name: Checkout repository
+        uses: actions/checkout@v3
+
+      # Step 2: Setup JDK
+      - name: Setup Java
+        uses: actions/setup-java@v3
+        with:
+          distribution: 'temurin'
+          java-version: '17'
+
+      # Step 3: Cache Maven dependencies
+      - name: Cache Maven
+        uses: actions/cache@v3
+        with:
+          path: ~/.m2/repository
+          key: ${{ runner.os }}-maven-${{ hashFiles('pom.xml') }}
+          restore-keys: |
+            ${{ runner.os }}-maven-
+
+      # Step 4: Build and run tests
+      - name: Run API Tests
+        run: mvn clean test
+
+      # Step 5: Generate Allure Report
+      - name: Generate Allure Report
+        run: mvn allure:report
+
+      # Step 6: Upload Allure Report as artifact
+      - name: Upload Allure Report
+        uses: actions/upload-artifact@v3
+        with:
+          name: allure-report
+          path: target/site/allure-maven-plugin
